@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161601291-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-161601291-2');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unichord Apps</title>
+    <link rel="shortcut icon" href="https://unichord-apps.com/images/favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</head>
+
+<style>
+    body {
+        min-height: 700px;
+        transition: 0.3s;
+        background: radial-gradient(white, white, #605050)
+    }
+
+    .shaking {
+        animation: shake 0.5s;
+        animation-iteration-count: infinite;
+        background: #333
+    }
+
+    .square {
+        transition: 0.8s ease-out;
+        pointer-events: none;
+    }
+
+    svg {
+        max-height: 600px;
+    }
+
+    @keyframes shake {
+        0% {
+            transform: translate(1px, 1px) rotate(0deg);
+        }
+
+        10% {
+            transform: translate(-1px, -2px) rotate(-1deg);
+        }
+
+        20% {
+            transform: translate(-3px, 0px) rotate(1deg);
+        }
+
+        30% {
+            transform: translate(3px, 2px) rotate(0deg);
+        }
+
+        40% {
+            transform: translate(1px, -1px) rotate(1deg);
+        }
+
+        50% {
+            transform: translate(-1px, 2px) rotate(-1deg);
+        }
+
+        60% {
+            transform: translate(-3px, 1px) rotate(0deg);
+        }
+
+        70% {
+            transform: translate(3px, 1px) rotate(-1deg);
+        }
+
+        80% {
+            transform: translate(-1px, -1px) rotate(1deg);
+        }
+
+        90% {
+            transform: translate(1px, 2px) rotate(0deg);
+        }
+
+        100% {
+            transform: translate(1px, -2px) rotate(-1deg);
+        }
+    }
+</style>
+
+<body>
+    <div class='bg-white'>
+        Level: <span id='info-level'></span>, Score: <span id='info-score'></span>/<span id='info-scoreTotal'></span>
+    </div>
+    <div id='container'>
+        <svg viewBox='0 0 80 100' id='svg'>
+
+        </svg>
+    </div>
+
+    <audio id='nextLevelSound'>
+        <source src="data/nextLevel.mp3" type="audio/mpeg">
+    </audio>
+    <audio id='restartLevelSound'>
+        <source src="data/restartLevel.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const levels = [{level:1,colors:["#FF6600","#FFFF00","#000000","#4CBB17","#0000FF","#6A0DAD","#D92121"],positions:[{x:34,y:24},{x:52,y:28},{x:23,y:35},{x:57,y:46},{x:45,y:57},{x:27,y:52},{x:40,y:40}]},{level:2,colors:["#e06666","#e69138","#93c47d","#ffd966","#cfe2f3","#FFFFFF","#d5a6bd","#a7d593"],positions:[{x:12,y:30},{x:26,y:30},{x:54,y:30},{x:68,y:30},{x:40,y:20},{x:40,y:38},{x:40,y:56},{x:40,y:72}]},{level:3,colors:["#d92121","#ededb9","#ffff00","#9fbb17","#6a0dad","#4b0082","#663399","#7f00ff","#b19cd9","#301934"],positions:[{x:12,y:16},{x:30,y:16},{x:48,y:16},{x:66,y:16},{x:22,y:30},{x:40,y:30},{x:58,y:30},{x:30,y:44},{x:48,y:44},{x:40,y:58}]},{level:4,colors:["#298acd","#fccbf4","#13366c","#61ad98","#d2b096","#2a504b","#173f55","#20639b","#3caea3","#f6d55c","#ed553b"],positions:[{x:15,y:15},{x:29,y:15},{x:43,y:15},{x:57,y:15},{x:15,y:29},{x:29,y:29},{x:43,y:29},{x:57,y:29},{x:15,y:43},{x:29,y:43},{x:43,y:43},{x:57,y:43}]},{level:5,colors:["#fb92b8","#a9a7eb","#7772b6","#f98d94","#f7af7e","#fb877e","#ea5768","#904756"],positions:[{x:20,y:15},{x:38,y:15},{x:56,y:15},{x:20,y:33},{x:56,y:33},{x:20,y:51},{x:38,y:51},{x:56,y:51}]},{level:6,colors:["#fac358","#dd541c","#c65f58","#edcfb9","#d4aab3","#795e42","#e84000"],positions:[{x:34,y:24},{x:52,y:28},{x:23,y:35},{x:57,y:46},{x:45,y:57},{x:27,y:52},{x:40,y:40}]},{level:7,colors:["#18156e","#0689ff","#fbcc0a","#fbdc5c","#743a6d","#e63552","#c98698"],positions:[{x:10,y:15},{x:20,y:27},{x:30,y:39},{x:40,y:51},{x:50,y:63},{x:60,y:75},{x:70,y:87}]},{level:8,colors:["#b055a5","#e78428","#d75c34","#96deb7","#3c525c","#4d79db","#212d55","#111210","#ffe373","#fc9c54"],positions:[{x:40,y:23},{x:27,y:30},{x:52,y:30},{x:22,y:44},{x:57,y:44},{x:22,y:58},{x:57,y:58},{x:27,y:70},{x:52,y:70},{x:40,y:77}]},{level:9,colors:["#fd5e53","#4b3d60","#152852","#08183a","#fbb825","#fbcf67","#fbe8c9","#313407","#f6ca97","#ed8728","#55470e","#e9dbcc"],positions:[{x:40,y:13},{x:25,y:15},{x:55,y:15},{x:12,y:20},{x:67,y:20},{x:5,y:30},{x:75,y:30},{x:12,y:40},{x:67,y:40},{x:25,y:50},{x:55,y:50},{x:40,y:52}]},{level:10,colors:["#c1e7e3","#dcfffb","#ffdcf4","#dabfde","#c1bbdd","#ff9aa2","#ffb7b2","#ffdac1","#e2f0cb","#c7ceea"],positions:[{x:10,y:12},{x:20,y:24},{x:30,y:36},{x:40,y:48},{x:50,y:60},{x:60,y:72},{x:62,y:22},{x:52,y:35},{x:28,y:62},{x:19,y:72}]}];
+
+        let state = {
+            level: 1,
+            pickedBalls: [],
+            colors: [],
+            fails: 0
+        }
+
+        const shuffle = () => {
+            state.colors.sort(() => Math.random() - 0.5);
+        }
+
+        let clickOnCircle = function (color, x, y) {
+            if (state.pickedBalls.length === state.colors.length - 1) {
+                //winning pick
+                let sound = document.getElementById('nextLevelSound')
+                sound.play()
+                setLevel(state.level + 1)
+                return false
+            }
+
+            if (!state.pickedBalls.includes(color)) {
+                //correct pick
+                let sound = new Audio('data/click.mp3')
+                sound.play()
+                state.pickedBalls.push(color)
+                shuffle()
+                renderBalls()
+                sparkle({ 'x': x, 'y': y }, color)
+
+            } else {
+                //incorrect pick 
+                state.fails++
+                let sound = document.getElementById('restartLevelSound')
+                sound.play()
+                $('body').addClass('shaking')
+                setTimeout(() => {
+                    $('body').removeClass('shaking')
+                }, 500);
+                setLevel(state.level)
+            }
+        }
+
+        const Circle = (center, color, radius = 10) => {
+            return $(`<circle class='circle' r=${radius} cx=${center.x} cy=${center.y} fill=${color} stroke='#000000' onclick="clickOnCircle('${color}', ${center.x},${center.y})"></circle>`)
+        }
+
+        const Square = (center, color, side = 10, id) => {
+            return $(`<rect id='${id}' class='square square-${color}' width=${side} height=${side} x=${center.x} y=${center.y} fill=${color} ></rect>`)
+        }
+
+        const sparkle = (center, color, n = 80) => {
+            while (n > 0) {
+                let id = 'square-' + n
+                n--
+                let randX = Math.ceil((Math.random() - 0.5) * 80)
+                let randY = Math.ceil((Math.random() - 0.5) * 80)
+
+                $('#svg').append(Square({ x: center.x, y: center.y }, color, 5, id))
+                setTimeout(() => {
+                    $('#' + id).css('transform', `translate(${randX}px,${randY}px)`)
+                    $('#' + id).css('opacity', 0)
+                }, 60)
+            }
+
+            setTimeout(() => {
+                $('.square-' + color).remove()
+            }, 800)
+            document.getElementById('container').innerHTML += ""
+        }
+
+        const renderBalls = () => {
+            $('#svg').empty()
+            $('#info-score').html(state.pickedBalls.length)
+            $('#info-scoreTotal').html(state.colors.length)
+            state.positions.forEach((pos, i) => {
+                $('#svg').append(Circle(pos, state.colors[i]))
+            })
+            document.getElementById('container').innerHTML += ""
+        }
+
+        const setLevel = num => {
+            state.level = num
+            state.score = 0
+            state.pickedBalls = []
+            state.colors = [...levels[num - 1].colors]
+            state.positions = [...levels[num-1].positions]
+
+            $('#svg').empty()
+            $('#info-level').html(state.level)
+            renderBalls()
+        }
+
+        const nextLevel = () => {
+            setLevel(state.level + 1)
+        }
+
+        setLevel(1)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<body><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161601291-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-161601291-2');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unichord Apps</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+    <style>
+
+        body{
+            background: url(images/balls.jpeg);
+        }
+        .circle{
+            display: inline-block;
+            border-radius: 50%;
+            width: 132px;
+            height: 132px;
+            border: solid black 6px;
+        }
+        .circle1{
+            margin-right: -6px;
+            background: #99edc3;
+            z-index:20
+        }
+        .circle2{
+            background: #fc46aa;
+            margin-right: -6px;
+        }
+
+        .circle3{
+            background: #58cc3e;
+            margin-left: 64px;
+            margin-top:-64px;
+            z-index:19
+        }
+        #title {
+            text-align: left;
+            width:280px;
+            margin-left:-3px;
+            margin-top: -182px;
+        }
+        #title h1{
+            font-weight: 100;
+            color: white;
+            text-shadow: 2px 2px #000000;
+        }
+        .logo{
+            width:257px;
+            margin:56px auto;
+        }
+
+        #play{
+            color: #3C7361;
+            border-color:  #3C7361;
+            width: 200px;
+            display: block;
+            margin: 164px auto 0 auto;
+            font-size: 32px;
+            background: white;
+            border: solid black 4px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class='logo'>
+        <div class='circle circle1'></div>
+        <div class='circle circle2'></div><br>
+        <div class='circle circle3'></div>
+        <div id='title' class='text-center'>
+            <h1>mem-ory&nbsp;&nbsp;&nbsp;&nbsp; <br> balls</h1>
+        </div>
+
+    </div>
+
+    <a id='play' class='btn btn-outline' href='instructions'>
+        PLAY
+    </a>
+
+</body>
